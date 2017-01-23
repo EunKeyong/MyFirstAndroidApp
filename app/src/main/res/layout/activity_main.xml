@@ -11,8 +11,10 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:layout_weight="1"
         android:background="#ffff00"
+        android:padding="16dp"
         android:text="안녕"
         android:textSize="45sp" />
 
