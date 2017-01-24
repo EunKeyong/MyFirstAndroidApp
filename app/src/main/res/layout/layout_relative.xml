@@ -4,11 +4,21 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/hello_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:background="#4b72f4"
         android:text="Hello"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hello_text"
+        android:layout_toStartOf="@id/hello_text"
+        android:background="#0fd1ce"
+        android:text="왼쪽"
         android:textSize="30sp" />
 
     <TextView
@@ -22,6 +32,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:background="#d4d94b"
         android:text="Bye"
         android:textSize="30sp" />
