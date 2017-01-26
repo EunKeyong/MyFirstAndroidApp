@@ -39,42 +39,35 @@ public class BasketballActivity_2 extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
             case R.id.team1_button1:
                 mteamAscore += POINT_3;
-                displayResult();
                 threePointMessage();
                 break;
             case R.id.team1_button2:
                 mteamAscore += POINT_2;
-                displayResult();
                 twoPointMessage();
                 break;
             case R.id.team1_button3:
                 mteamAscore += POINT_FREE;
-                displayResult();
                 onePointMessage();
                 break;
             case R.id.team2_button1:
                 mteamBscore += POINT_3;
-                displayResult();
                 threePointMessage();
                 break;
             case R.id.team2_button2:
                 mteamBscore += POINT_2;
-                displayResult();
                 twoPointMessage();
                 break;
             case R.id.team2_button3:
                 mteamBscore += POINT_FREE;
-                displayResult();
                 onePointMessage();
                 break;
             case R.id.reset_button:
                 init();
-                displayResult();
                 resetMessage();
                 break;
             default:
         }
-
+        displayResult();
     }
     private void displayResult() {
         mTeam1ScroeText.setText("" + mteamAscore);
