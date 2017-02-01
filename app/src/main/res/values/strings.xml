@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Exam_0120</string>
+    <string name="title_activity_implicit">ImplicitActivity</string>
 </resources>
