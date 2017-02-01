@@ -1,5 +1,6 @@
 package com.example.byg.exam_0120;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -33,6 +34,11 @@ public class BasketballActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_basketball);
+        if(getIntent()!=null){
+            Uri data = this.getIntent().getData();
+            Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
+        }
+
         init();
 
         mTeam1Button1 = (Button) findViewById(R.id.team1_button1);

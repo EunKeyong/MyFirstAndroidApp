@@ -52,7 +52,6 @@ public class ImplicitActivity extends AppCompatActivity implements View.OnClickL
                 showUrl(url);
                 break;
         }
-
     }
 
     private void showUrl(String url) {
