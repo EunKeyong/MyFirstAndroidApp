@@ -1,13 +1,14 @@
 package com.example.byg.exam_0120;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,12 +24,14 @@ public class MainActivity extends AppCompatActivity {
     private Button mOrderButton;
     private TextView mQuantityTextView;
     private TextView mResultTextView;
+    private EditText mCommentEditText;
     private CheckBox mCreamCheckBox;
 
     // 수량을 나타내는 전역변수
     private int mQuantity;
     // 휘핑크림
     private boolean mIsCream;
+    private int mcreamCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         mOrderButton = (Button) findViewById(R.id.order_button);
         mQuantityTextView = (TextView) findViewById(R.id.quantity_text);
         mResultTextView = (TextView) findViewById(R.id.result_text);
+        mCommentEditText = (EditText) findViewById(R.id.comment_edit);
         mCreamCheckBox = (CheckBox) findViewById(R.id.cream_check);
 
         // 무명 클래스
@@ -75,8 +79,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String message = mResultTextView.getText().toString();
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-                init();
+                //Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                // OrderCheckActivity 화면 시작
+                Intent intent = new Intent(MainActivity.this, OrderCheckActivity.class);
+                // 메세지, 코멘트 같이 나오게
+                intent.putExtra("result", message);
+                intent.putExtra("comment", mCommentEditText.getText().toString());
+                startActivity(intent);
             }
         });
 
@@ -90,21 +100,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void creamData() {
+        if(mIsCream) {
+
+        }
+    }
     private void displayResult() {
         mQuantityTextView.setText("" + mQuantity);
 //        int price = COFFEE_PRICE;
         int total = COFFEE_PRICE * mQuantity;
-
         if (mIsCream) {
-            total += CREAM_PRICE;
+            total+=CREAM_PRICE*mcreamCount;
         }
         String result = String.format("가격 : %d원\n수량 : %d개\n휘핑크림 : %s\n감사합니다",
-                COFFEE_PRICE * mQuantity, mQuantity, mIsCream);
+                total, mQuantity, mIsCream);
         mResultTextView.setText(result);
     }
 
     // 변수초기화하는 메소드드
     private void init() {
         mQuantity = QUANTITY_MIN;
+        //mcreamCount = 0;
     }
 }
