@@ -1,6 +1,7 @@
 package com.example.byg.exam_0120;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -143,11 +144,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "설정 아직 미구현", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_menu2:
+                sound();
                 return true;
             case R.id.action_menu3:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void sound() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.funny_voices);
+        mediaPlayer.start();
     }
 }
