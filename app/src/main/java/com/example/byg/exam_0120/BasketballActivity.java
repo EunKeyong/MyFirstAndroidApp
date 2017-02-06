@@ -34,9 +34,11 @@ public class BasketballActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_basketball);
-        if(getIntent()!=null){
+        if (getIntent() != null) {
             Uri data = this.getIntent().getData();
-            Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
+            if (data != null) {
+                Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
+            }
         }
 
         init();
@@ -108,6 +110,7 @@ public class BasketballActivity extends AppCompatActivity {
             }
         });
     }
+
     private void displayResult() {
         mTeam1ScroeText.setText("" + mteamAscore);
         mTeam2ScroeText.setText("" + mteamBscore);
