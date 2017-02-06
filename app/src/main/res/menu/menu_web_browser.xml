@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:enabled="true"
+        android:id="@+id/back_setting"
+        android:icon="@drawable/ic_arrow_back"
+        app:showAsAction="always"
+        android:title="뒤로가기" />
+
+    <item
+        android:enabled="true"
+        android:id="@+id/forward_setting"
+        android:icon="@drawable/ic_arrow_forward"
+        app:showAsAction="always"
+        android:title="앞으로" />
+
+    <item
+        android:enabled="true"
+        android:id="@+id/refresh_setting"
+        android:icon="@drawable/ic_refresh"
+        app:showAsAction="always"
+        android:title="새로고침" />
+
+</menu>
