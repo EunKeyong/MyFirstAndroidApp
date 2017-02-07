@@ -1,6 +1,7 @@
 package com.example.byg.exam_0120.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class WeatherAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_weather,
                     viewGroup, false);
         }
+
         //레이아웃 들고오기
         ImageView imageView = (ImageView) convertView.findViewById(R.id.weather_image);
         TextView locationTextView = (TextView) convertView.findViewById(R.id.location_text);
@@ -66,6 +68,25 @@ public class WeatherAdapter extends BaseAdapter {
         locationTextView.setText(weather.getLocation());
         temperatureTextView.setText(weather.getTemperature());
 
+        // 홀수줄은빨간색
+        if (position % 2 == 1) {
+            convertView.setBackgroundColor(Color.RED);
+        } else {
+            convertView.setBackgroundColor(Color.WHITE);
+        }
+
+        // 선택된 포지션과 현재 위치가 같으면
+        if (mSelectedPosition == position) {
+            convertView.setBackgroundColor(Color.YELLOW);
+        }
+
         return convertView;
+    }
+
+    // -1이면 선택된게 없다.
+    private int mSelectedPosition = -1;
+
+    public void setSelect(int position) {
+        mSelectedPosition = position;
     }
 }
