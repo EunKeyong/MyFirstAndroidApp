@@ -1,10 +1,14 @@
 package com.example.byg.exam_0120.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.byg.exam_0120.R;
 import com.example.byg.exam_0120.models.Weather;
 
 import java.util.List;
@@ -43,7 +47,25 @@ public class WeatherAdapter extends BaseAdapter {
     // position 번째의 layout
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        // convertView 에서 item 하나의 레이아웃 정의
-        return null;
+        // convertView : 재사용 되는 뷰
+        if (convertView == null) {
+            // 없으니까 가져옴
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_weather,
+                    viewGroup, false);
+        }
+        //레이아웃 들고오기
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.weather_image);
+        TextView locationTextView = (TextView) convertView.findViewById(R.id.location_text);
+        TextView temperatureTextView = (TextView) convertView.findViewById(R.id.temperature_text);
+
+        // 데이터
+        Weather weather = mData.get(position);
+
+        //화면에 뿌리기
+        imageView.setImageResource(weather.getImageRes());
+        locationTextView.setText(weather.getLocation());
+        temperatureTextView.setText(weather.getTemperature());
+
+        return convertView;
     }
 }
