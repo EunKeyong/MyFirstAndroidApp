@@ -48,25 +48,42 @@ public class WeatherAdapter extends BaseAdapter {
     // position 번째의 layout
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
+
+        ViewHolder viewHolder;
+
         // convertView : 재사용 되는 뷰
         if (convertView == null) {
+            // 뷰를 새로 만들 때
+            viewHolder = new ViewHolder();
             // 없으니까 가져옴
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_weather,
                     viewGroup, false);
+
+            //레이아웃 들고오기
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.weather_image);
+            TextView locationTextView = (TextView) convertView.findViewById(R.id.location_text);
+            TextView temperatureTextView = (TextView) convertView.findViewById(R.id.temperature_text);
+
+            // 뷰 홀더에 넣는다.
+            viewHolder.weatherImage = imageView;
+            viewHolder.locationTextView = locationTextView;
+            viewHolder.temperatureTextView = temperatureTextView;
+
+            convertView.setTag(viewHolder);
+
+            // 재사용 할 때때
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        //레이아웃 들고오기
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.weather_image);
-        TextView locationTextView = (TextView) convertView.findViewById(R.id.location_text);
-        TextView temperatureTextView = (TextView) convertView.findViewById(R.id.temperature_text);
 
         // 데이터
         Weather weather = mData.get(position);
 
         //화면에 뿌리기
-        imageView.setImageResource(weather.getImageRes());
-        locationTextView.setText(weather.getLocation());
-        temperatureTextView.setText(weather.getTemperature());
+        viewHolder.weatherImage.setImageResource(weather.getImageRes());
+        viewHolder.locationTextView.setText(weather.getLocation());
+        viewHolder.temperatureTextView.setText(weather.getTemperature());
 
         // 홀수줄은빨간색
         if (position % 2 == 1) {
@@ -88,5 +105,11 @@ public class WeatherAdapter extends BaseAdapter {
 
     public void setSelect(int position) {
         mSelectedPosition = position;
+    }
+    // findViewById로 가져온 View 들을 보관
+    private static class ViewHolder {
+        ImageView weatherImage;
+        TextView locationTextView;
+        TextView temperatureTextView;
     }
 }
