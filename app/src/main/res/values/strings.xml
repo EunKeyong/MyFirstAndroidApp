@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Exam_0120</string>
+    <string name="app_name">Exam</string>
     <string name="title_activity_implicit">ImplicitActivity</string>
+    <string name="title_activity_memo">MemoActivity</string>
 </resources>
