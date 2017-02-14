@@ -1,10 +1,12 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.byg.exam_0120.R;
 
 public class TargetActivity extends AppCompatActivity implements View.OnClickListener {
 

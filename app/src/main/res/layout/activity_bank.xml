@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.byg.exam_0120.BankActivity">
+    tools:context="com.example.byg.exam_0120.activities.BankActivity">
 
     <Button
         android:onClick="onClick"

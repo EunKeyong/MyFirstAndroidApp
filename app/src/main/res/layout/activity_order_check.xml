@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="16dp"
-    tools:context="com.example.byg.exam_0120.OrderCheckActivity">
+    tools:context="com.example.byg.exam_0120.activities.OrderCheckActivity">
 
     <TextView
         android:id="@+id/result_text"

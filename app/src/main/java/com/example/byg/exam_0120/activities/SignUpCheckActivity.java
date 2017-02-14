@@ -1,10 +1,12 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.byg.exam_0120.R;
 
 public class SignUpCheckActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -16,12 +18,11 @@ public class SignUpCheckActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_sign_up_check);
 
         mResultTextView = (TextView) findViewById(R.id.result_text);
-
         findViewById(R.id.confirmation_button).setOnClickListener(this);
 
         if (getIntent() != null) {
             String result = getIntent().getStringExtra("result");
-            mResultTextView.setText(result);
+                mResultTextView.setText(result);
         }
     }
 

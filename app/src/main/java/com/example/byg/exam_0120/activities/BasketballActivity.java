@@ -1,4 +1,4 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.byg.exam_0120.R;
 
 public class BasketballActivity extends AppCompatActivity {
 

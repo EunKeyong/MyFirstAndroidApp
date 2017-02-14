@@ -1,4 +1,4 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.example.byg.exam_0120.R;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,18 +66,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.join_button:
                 // 입력이 빠졌을때
-                if (TextUtils.isEmpty(mIdEditText.getText().toString())
-                        || TextUtils.isEmpty(mPassWordEditText.getText().toString())
-                        || TextUtils.isEmpty(mPassWordCheckEditText.getText().toString())
-                        || TextUtils.isEmpty(mEmailEditText.getText().toString())
-                        || !isSelected
-                        ) {
+                if (!isValid(isSelected)) {
                     Toast.makeText(this, "모두 입력해주셔야 합니다", Toast.LENGTH_SHORT).show();
 
                     // 비밀번호, 비밀번호확인 입력값이 다를 경우
-                } else if (!mPassWordEditText.getText().toString().equals(mPassWordCheckEditText.getText().toString())) {
+                } else if (!isValidPassWord()) {
                     Toast.makeText(this, "비밀번호가 다릅니다", Toast.LENGTH_SHORT).show();
-
                 } else {
                     Intent intent = new Intent(this, SignUpCheckActivity.class);
                     intent.putExtra("result", "아이디 : " + mIdEditText.getText().toString() + "\n"
@@ -89,13 +85,24 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    private boolean isValidPassWord() {
+        return mPassWordEditText.getText().toString().equals(mPassWordCheckEditText.getText().toString());
+    }
+
+    private boolean isValid(boolean isSelected) {
+        return TextUtils.isEmpty(mIdEditText.getText().toString())
+                || TextUtils.isEmpty(mPassWordEditText.getText().toString())
+                || TextUtils.isEmpty(mPassWordCheckEditText.getText().toString())
+                || TextUtils.isEmpty(mEmailEditText.getText().toString())
+                || !isSelected;
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             String result = data.getStringExtra("result");
             Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-
         }
     }
 

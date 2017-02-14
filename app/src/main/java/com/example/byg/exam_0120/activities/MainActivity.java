@@ -1,4 +1,4 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -14,6 +14,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.byg.exam_0120.R;
 
 public class MainActivity extends AppCompatActivity {
 

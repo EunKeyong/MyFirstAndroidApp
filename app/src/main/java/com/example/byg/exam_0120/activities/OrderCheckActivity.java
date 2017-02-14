@@ -1,4 +1,4 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.byg.exam_0120.R;
+
 public class OrderCheckActivity extends AppCompatActivity implements View.OnClickListener {
+
     private static final String TAG = OrderCheckActivity.class.getSimpleName();
 
     private TextView mResultTextView;

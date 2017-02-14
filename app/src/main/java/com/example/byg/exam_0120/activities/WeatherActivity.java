@@ -1,4 +1,4 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.byg.exam_0120.R;
 import com.example.byg.exam_0120.adapters.WeatherAdapter;
 import com.example.byg.exam_0120.models.Weather;
 
@@ -58,7 +59,6 @@ public class WeatherActivity extends AppCompatActivity implements AdapterView.On
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         madapter.setSelect(position);
-
         // 데이터가 변경됨을 알려줌 / 다시그려라
         madapter.notifyDataSetChanged();
     }
@@ -67,7 +67,6 @@ public class WeatherActivity extends AppCompatActivity implements AdapterView.On
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         // 롱 클릭시 해당 아이템 삭제
         mweatherList.remove(i);
-
         // 어댑터에 변경을 통지
         madapter.notifyDataSetChanged();
         return true;

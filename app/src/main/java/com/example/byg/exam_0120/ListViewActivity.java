@@ -3,14 +3,28 @@ package com.example.byg.exam_0120;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.byg.exam_0120.activities.BankActivity;
+import com.example.byg.exam_0120.activities.BasketballActivity;
+import com.example.byg.exam_0120.activities.LifeCycleActivity;
+import com.example.byg.exam_0120.activities.ListViewExamActivity;
+import com.example.byg.exam_0120.activities.MainActivity;
+import com.example.byg.exam_0120.activities.MemoActivity;
+import com.example.byg.exam_0120.activities.SignUpActivity;
+import com.example.byg.exam_0120.activities.WeatherActivity;
+import com.example.byg.exam_0120.activities.WebBrowserActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ListViewActivity extends AppCompatActivity {
@@ -34,6 +48,11 @@ public class ListViewActivity extends AppCompatActivity {
         //addItem("암시적 인텐트", "암시적 인텐트, intent filter 연습", ImplicitActivity.class);
         addItem("로그인 화면", "RadioButton", SignUpActivity.class);
         addItem("웹 브라우저", "WebView, Vector Asset, Option Menu", WebBrowserActivity.class);
+        addItem("날씨 앱", "모델클래스를 활용하여 BaseAdapter 연습", WeatherActivity.class);
+        addItem("메모장", " 연습문제", MemoActivity.class);
+        addItem("은행 앱", " 연습문제", BankActivity.class);
+        addItem("LifeCycle", "생명주기", LifeCycleActivity.class);
+        addItem("LIstView 연습", "연습문제", ListViewExamActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
@@ -42,11 +61,12 @@ public class ListViewActivity extends AppCompatActivity {
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 //                android.R.layout.simple_list_item_1, mDataList);
 
-        SimpleAdapter adapter = new SimpleAdapter(this, mDataList,
-                android.R.layout.simple_list_item_2,
-                new String[]{"title", "desc"},
-                new int[]{android.R.id.text1, android.R.id.text2});
+//        SimpleAdapter adapter = new SimpleAdapter(this, mDataList,
+//                android.R.layout.simple_list_item_2,
+//                new String[]{"title", "desc"},
+//                new int[]{android.R.id.text1, android.R.id.text2});
 
+        MyAdapter adapter = new MyAdapter(mDataList);
         mListView.setAdapter(adapter);
 
         // 클릭이벤트
@@ -78,39 +98,43 @@ public class ListViewActivity extends AppCompatActivity {
         mDataList.add(map);
     }
 
-//    private static class MyAdapter extends BaseAdapter {
-//
-//        private final List<Map<String, Object>> mData;
-//
-//        public MyAdapter(List<Map<String, Object>> data) {
-//            mData = data;
-//        }
-//        @Override
-//        public int getCount() {
-//            return mData.size();
-//        }
-//
-//        @Override
-//        public Object getItem(int i) {
-//            return mData.get(i);
-//        }
-//
-//        @Override
-//        public long getItemId(int i) {
-//            return i;
-//        }
-//
-//        @Override
-//        public View getView(int i, View view, ViewGroup viewGroup) {
-//
-//            if(view == null) {
-//                view = LayoutInflater.from(viewGroup.getContext()).inflate
-//                        (android.R.layout.simple_list_item_2, viewGroup, false);
-//            }
-//            TextView text1 = (TextView) view.findViewById(android.R.id.text1);
-//            TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-//
-//            return view;
-//        }
-//    }
+    private static class MyAdapter extends BaseAdapter {
+
+        private final List<Map<String, Object>> mData;
+
+        public MyAdapter(List<Map<String, Object>> data) {
+            mData = data;
+        }
+        @Override
+        public int getCount() {
+            return mData.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return mData.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            if(view == null) {
+                view = LayoutInflater.from(viewGroup.getContext()).inflate
+                        (android.R.layout.simple_list_item_2, viewGroup, false);
+            }
+            TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+            TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+            Map<String, Object> item = mData.get(i);
+            text1.setText((String) item.get("title"));
+            text2.setText((String) item.get("desc"));
+
+            return view;
+        }
+    }
 }

@@ -19,6 +19,7 @@ import java.util.List;
  */
 
 public class WeatherAdapter extends BaseAdapter {
+
     private Context mContext;
     private List<Weather> mData;
 
@@ -71,11 +72,10 @@ public class WeatherAdapter extends BaseAdapter {
 
             convertView.setTag(viewHolder);
 
-            // 재사용 할 때때
+            // 재사용 할 때
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
 
         // 데이터
         Weather weather = mData.get(position);
@@ -107,6 +107,7 @@ public class WeatherAdapter extends BaseAdapter {
         mSelectedPosition = position;
     }
     // findViewById로 가져온 View 들을 보관
+
     private static class ViewHolder {
         ImageView weatherImage;
         TextView locationTextView;

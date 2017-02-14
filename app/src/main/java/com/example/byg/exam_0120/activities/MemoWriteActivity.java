@@ -1,4 +1,4 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.example.byg.exam_0120.R;
 import com.example.byg.exam_0120.models.Memo;
 
 public class MemoWriteActivity extends AppCompatActivity {

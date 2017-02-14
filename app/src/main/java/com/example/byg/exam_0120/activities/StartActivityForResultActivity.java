@@ -1,4 +1,4 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.byg.exam_0120.R;
+
 public class StartActivityForResultActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int REQUEST_CODE_EXAMPLE = 1000;
     public static final int REQUEST_NEW_MEMO = 2000;
     public static final int REQUEST_UPDATE_MEMO = 3000;
-
     private EditText mValueEditText;
 
     @Override
@@ -21,7 +22,6 @@ public class StartActivityForResultActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_start_for_result);
 
         mValueEditText = (EditText) findViewById(R.id.value_edit);
-
         findViewById(R.id.submit_button).setOnClickListener(this);
     }
 
@@ -47,7 +47,6 @@ public class StartActivityForResultActivity extends AppCompatActivity implements
             int value = data.getIntExtra("int", -1);
             Toast.makeText(this, result + ", int : " + value, Toast.LENGTH_SHORT).show();
         } else if (requestCode == REQUEST_NEW_MEMO) {
-
         } else if (requestCode == REQUEST_UPDATE_MEMO) {
 
         }

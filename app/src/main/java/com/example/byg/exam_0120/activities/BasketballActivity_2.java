@@ -1,10 +1,12 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.byg.exam_0120.R;
 
 public class BasketballActivity_2 extends AppCompatActivity implements View.OnClickListener{
     public static final int POINT_3 = 3;

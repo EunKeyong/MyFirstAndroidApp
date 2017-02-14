@@ -1,4 +1,4 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.byg.exam_0120.R;
 
 public class WebBrowserActivity extends AppCompatActivity {
 

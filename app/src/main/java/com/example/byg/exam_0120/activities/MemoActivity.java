@@ -1,4 +1,4 @@
-package com.example.byg.exam_0120;
+package com.example.byg.exam_0120.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.byg.exam_0120.R;
 import com.example.byg.exam_0120.adapters.MemoAdapter;
 import com.example.byg.exam_0120.models.Memo;
 
