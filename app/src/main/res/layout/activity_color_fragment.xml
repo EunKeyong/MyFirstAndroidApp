@@ -13,10 +13,15 @@
         android:layout_height="100dp"
         tools:layout="@layout/fragment_color" />
 
-    <fragment
-        android:id="@+id/color_frag2"
-        android:name="com.example.byg.exam_0120.fragments.ColorFragment"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        tools:layout="@layout/fragment_color" />
+        android:layout_height="100dp"/>
+
+    <Button
+        android:onClick="onClick"
+        android:text="변경"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
