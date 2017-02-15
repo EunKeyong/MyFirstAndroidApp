@@ -24,6 +24,7 @@ import com.example.byg.exam_0120.activities.MainActivity;
 import com.example.byg.exam_0120.activities.MemoActivity;
 import com.example.byg.exam_0120.activities.SignUpActivity;
 import com.example.byg.exam_0120.activities.ViewPagerActivity;
+import com.example.byg.exam_0120.activities.ViewPagerExamActivity;
 import com.example.byg.exam_0120.activities.WeatherActivity;
 import com.example.byg.exam_0120.activities.WebBrowserActivity;
 
@@ -63,6 +64,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("프래그먼트 연습", "프래그먼트 연습1", FragmentExam1Activity.class);
         addItem("프래그먼트 콜백 연습", "콜백", ImageFragmentActivity.class);
         addItem("ViewPager", "ViewPager", ViewPagerActivity.class);
+        addItem("ViewPager 연습", "TabLayout + ViewPager", ViewPagerExamActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
