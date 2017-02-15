@@ -14,19 +14,18 @@ import com.example.byg.exam_0120.R;
 public class ColorFragment extends Fragment {
 
     private int mColor = Color.WHITE;
-
     // 필수
     public ColorFragment() {
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_color, container, false);
         view.setBackgroundColor(mColor);
         return view;
     }
-
     public void setColor(int color) {
         mColor = color;
         if (getView() != null) {
