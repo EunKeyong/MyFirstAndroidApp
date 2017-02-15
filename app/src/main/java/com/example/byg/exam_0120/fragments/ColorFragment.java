@@ -23,6 +23,7 @@ public class ColorFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putInt("color", color);
         colorFragment.setArguments(bundle);
+
         return colorFragment;
     }
 

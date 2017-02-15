@@ -56,7 +56,8 @@
         <activity android:name=".activities.ImageFragmentActivity" />
         <activity android:name=".activities.ColorFragmentActivity" />
         <activity android:name=".activities.ListViewExam3Activity" />
-        <activity android:name=".activities.FragmentExam1Activity"></activity>
+        <activity android:name=".activities.FragmentExam1Activity" />
+        <activity android:name=".activities.ViewPagerActivity"></activity>
     </application>
 
 </manifest>
