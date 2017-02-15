@@ -24,6 +24,11 @@ public class ColorFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_color, container, false);
         view.setBackgroundColor(mColor);
+
+        Bundle bundle = getArguments();
+        int color = bundle.getInt("color");
+        mColor = color;
+        view.setBackgroundColor(mColor);
         return view;
     }
     public void setColor(int color) {
