@@ -52,7 +52,11 @@
         <activity android:name=".activities.AccountCheckActivity" />
         <activity android:name=".activities.LifeCycleActivity" />
         <activity android:name=".activities.ListViewExamActivity" />
-        <activity android:name=".activities.LIstViewExamNextActivity"></activity>
+        <activity android:name=".activities.LIstViewExamNextActivity" />
+        <activity android:name=".activities.ImageFragmentActivity" />
+        <activity android:name=".activities.ColorFragmentActivity" />
+        <activity android:name=".activities.ListViewExam3Activity" />
+        <activity android:name=".activities.FragmentExam1Activity"></activity>
     </application>
 
 </manifest>

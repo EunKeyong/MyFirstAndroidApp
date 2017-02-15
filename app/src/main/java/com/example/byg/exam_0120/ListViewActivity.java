@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.byg.exam_0120.activities.BankActivity;
 import com.example.byg.exam_0120.activities.BasketballActivity;
 import com.example.byg.exam_0120.activities.ColorFragmentActivity;
+import com.example.byg.exam_0120.activities.FragmentExam1Activity;
+import com.example.byg.exam_0120.activities.ImageFragmentActivity;
 import com.example.byg.exam_0120.activities.LifeCycleActivity;
 import com.example.byg.exam_0120.activities.ListViewExam3Activity;
 import com.example.byg.exam_0120.activities.ListViewExamActivity;
@@ -57,6 +59,8 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("LIstView 연습", "연습문제", ListViewExamActivity.class);
         addItem("Fragment", "ColorFragment", ColorFragmentActivity.class);
         addItem("리스트뷰 연습", "리스트뷰 연습", ListViewExam3Activity.class);
+        addItem("프래그먼트 연습", "프래그먼트 연습1", FragmentExam1Activity.class);
+        addItem("프래그먼트 콜백 연습", "콜백", ImageFragmentActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
