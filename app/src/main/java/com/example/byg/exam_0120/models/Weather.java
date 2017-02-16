@@ -6,13 +6,30 @@ package com.example.byg.exam_0120.models;
 
 public class Weather {
     private int imageRes;
-    private String location;
+    private String weather;
+    private String country;
     private String temperature;
 
-    public Weather(int imageRes, String location, String temperature) {
+    public Weather(int imageRes, String country, String temperature) {
         this.imageRes = imageRes;
-        this.location = location;
+        this.country = country;
         this.temperature = temperature;
+    }
+
+    public String getWeather() {
+        return weather;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setWeather(String weather) {
+        this.weather = weather;
     }
 
     public int getImageRes() {
@@ -21,14 +38,6 @@ public class Weather {
 
     public void setImageRes(int imageRes) {
         this.imageRes = imageRes;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getTemperature() {
@@ -43,7 +52,8 @@ public class Weather {
     public String toString() {
         final StringBuffer sb = new StringBuffer("Weather{");
         sb.append("imageRes=").append(imageRes);
-        sb.append(", location='").append(location).append('\'');
+        sb.append(", weather='").append(weather).append('\'');
+        sb.append(", country='").append(country).append('\'');
         sb.append(", temperature='").append(temperature).append('\'');
         sb.append('}');
         return sb.toString();
