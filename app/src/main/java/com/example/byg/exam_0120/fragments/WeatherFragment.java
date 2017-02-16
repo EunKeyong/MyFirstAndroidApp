@@ -33,7 +33,7 @@ public class WeatherFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-    
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class WeatherFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mWeatherList = (List<Weather>) getArguments().getSerializable("data");
-        ListView listView = (ListView) view.findViewById(R.id.list_view);
+        ListView listView = (ListView) view.findViewById(R.id.list_view_frag);
         WeatherAdapter adapter = new WeatherAdapter(getActivity(), mWeatherList);
 
         listView.setAdapter(adapter);

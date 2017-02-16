@@ -16,16 +16,19 @@ import com.example.byg.exam_0120.activities.BankActivity;
 import com.example.byg.exam_0120.activities.BasketballActivity;
 import com.example.byg.exam_0120.activities.ColorFragmentActivity;
 import com.example.byg.exam_0120.activities.FragmentExam1Activity;
+import com.example.byg.exam_0120.activities.GeoIpActivity;
 import com.example.byg.exam_0120.activities.ImageFragmentActivity;
 import com.example.byg.exam_0120.activities.LifeCycleActivity;
 import com.example.byg.exam_0120.activities.ListViewExam3Activity;
 import com.example.byg.exam_0120.activities.ListViewExamActivity;
 import com.example.byg.exam_0120.activities.MainActivity;
 import com.example.byg.exam_0120.activities.MemoActivity;
+import com.example.byg.exam_0120.activities.MusicPlayerExamActivity;
 import com.example.byg.exam_0120.activities.SignUpActivity;
 import com.example.byg.exam_0120.activities.ViewPagerActivity;
 import com.example.byg.exam_0120.activities.ViewPagerExamActivity;
 import com.example.byg.exam_0120.activities.WeatherActivity;
+import com.example.byg.exam_0120.activities.WeatherApiActivity;
 import com.example.byg.exam_0120.activities.WebBrowserActivity;
 
 import java.util.ArrayList;
@@ -65,6 +68,9 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("프래그먼트 콜백 연습", "콜백", ImageFragmentActivity.class);
         addItem("ViewPager", "ViewPager", ViewPagerActivity.class);
         addItem("ViewPager 연습", "TabLayout + ViewPager", ViewPagerExamActivity.class);
+        addItem("날씨앱 API버전", "API 사용 연습", WeatherApiActivity.class);
+        addItem("FreeGeoIp ", "API 사용 연습", GeoIpActivity.class);
+        addItem("MusicPlayer UI연습", "Fragment + ViewPager + TabLayout", MusicPlayerExamActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);

@@ -18,6 +18,7 @@ public class ImageFragmentActivity extends AppCompatActivity implements ImageFra
         ImageFragment imageFragment = (ImageFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.image_frag);
         imageFragment.setOnImageTouchListener(this);
+
     }
 
     @Override

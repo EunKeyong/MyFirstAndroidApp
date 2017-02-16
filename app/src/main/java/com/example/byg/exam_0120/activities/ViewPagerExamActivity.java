@@ -35,7 +35,6 @@ public class ViewPagerExamActivity extends AppCompatActivity {
         });
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     private List<String> createCharacterList(char start, char end) {
