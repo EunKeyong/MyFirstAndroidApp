@@ -10,6 +10,12 @@ import android.widget.Toast;
 
 import com.example.byg.exam_0120.R;
 import com.example.byg.exam_0120.models.GeoIp;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,15 +25,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public class GeoIpActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class GeoIpActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
+    private GoogleMap mMap;
     private EditText mAddressEditText;
-    private TextView mResultTextVie;
+    private TextView mResultTextView;
 
     private Retrofit mRetrofit;
 
     private FreeGeoIpService mService;
     private ProgressBar mProgressBar;
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(37.274105, 127.02262100000007);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("수원스마트앱개발학원"));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
 
     interface FreeGeoIpService {
 
@@ -40,6 +57,10 @@ public class GeoIpActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_geo_ip);
 
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         mRetrofit = new Retrofit.Builder()
                 .baseUrl("http://freegeoip.net/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -48,7 +69,7 @@ public class GeoIpActivity extends AppCompatActivity implements View.OnClickList
         mService = mRetrofit.create(FreeGeoIpService.class);
 
         mAddressEditText = (EditText) findViewById(R.id.address_edit);
-        mResultTextVie = (TextView) findViewById(R.id.result_text);
+        mResultTextView = (TextView) findViewById(R.id.result_text);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         findViewById(R.id.submit_btn).setOnClickListener(this);
 
@@ -65,7 +86,19 @@ public class GeoIpActivity extends AppCompatActivity implements View.OnClickList
                         GeoIp geoIp = response.body();
                         if(geoIp!=null) {
 
-                            mResultTextVie.setText(geoIp.toString());
+                            mResultTextView.setText(geoIp.toString());
+
+                            // 지도에 반영
+                            // 도시이름
+                            String city = geoIp.getCity();
+                            // 위도, 경도
+                            String lat = geoIp.getLatitude();
+                            String lng = geoIp.getLongitude();
+                            LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(city));
+                            mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
                         }else {
                             Toast.makeText(GeoIpActivity.this, "잘못된 입력입니다", Toast.LENGTH_SHORT).show();
                         }
