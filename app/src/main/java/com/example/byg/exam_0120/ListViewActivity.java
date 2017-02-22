@@ -16,6 +16,7 @@ import com.example.byg.exam_0120.activities.BankActivity;
 import com.example.byg.exam_0120.activities.BasketballActivity;
 import com.example.byg.exam_0120.activities.ColorFragmentActivity;
 import com.example.byg.exam_0120.activities.FragmentExam1Activity;
+import com.example.byg.exam_0120.activities.GalleryActivity;
 import com.example.byg.exam_0120.activities.GeoIpActivity;
 import com.example.byg.exam_0120.activities.ImageFragmentActivity;
 import com.example.byg.exam_0120.activities.LifeCycleActivity;
@@ -73,6 +74,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("FreeGeoIp ", "API 사용 연습", GeoIpActivity.class);
         addItem("MusicPlayer UI연습", "Fragment + ViewPager + TabLayout", MusicPlayerExamActivity.class);
         addItem("네이버 기계번역 API 연습", "", NaverTranslateApiActivity.class);
+        addItem("갤러리", "CursorAdapter, Provider 연습", GalleryActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
