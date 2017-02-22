@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 public class Memo implements Serializable{
 
+    private long id;
     private String title;
     private String content;
 
@@ -30,6 +31,14 @@ public class Memo implements Serializable{
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override

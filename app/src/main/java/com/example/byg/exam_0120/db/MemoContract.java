@@ -22,6 +22,7 @@ public final class MemoContract {
             MemoEntry._ID,
             MemoEntry.COLUMN_NAME_TITLE,
             MemoEntry.COLUMN_NAME_CONTENTS);
+
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.
     private MemoContract() {

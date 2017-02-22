@@ -18,6 +18,7 @@ import java.util.List;
  */
 
 public class MemoAdapter extends BaseAdapter {
+
     private Context mContext;
     private List<Memo> mData;
 
@@ -36,9 +37,10 @@ public class MemoAdapter extends BaseAdapter {
         return mData.get(i);
     }
 
+    // db id 받아 올 수있게 수정
     @Override
     public long getItemId(int i) {
-        return i;
+        return mData.get(i).getId();
     }
 
     @Override
