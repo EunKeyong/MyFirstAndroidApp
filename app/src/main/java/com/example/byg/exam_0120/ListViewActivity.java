@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.byg.exam_0120.activities.AsyncTaskActivity;
 import com.example.byg.exam_0120.activities.BankActivity;
 import com.example.byg.exam_0120.activities.BasketballActivity;
 import com.example.byg.exam_0120.activities.ColorFragmentActivity;
@@ -27,6 +28,7 @@ import com.example.byg.exam_0120.activities.MemoActivity;
 import com.example.byg.exam_0120.activities.MusicPlayerExamActivity;
 import com.example.byg.exam_0120.activities.NaverTranslateApiActivity;
 import com.example.byg.exam_0120.activities.SignUpActivity;
+import com.example.byg.exam_0120.activities.ThreadActivity;
 import com.example.byg.exam_0120.activities.ViewPagerActivity;
 import com.example.byg.exam_0120.activities.ViewPagerExamActivity;
 import com.example.byg.exam_0120.activities.WeatherActivity;
@@ -75,6 +77,8 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("MusicPlayer UI연습", "Fragment + ViewPager + TabLayout", MusicPlayerExamActivity.class);
         addItem("네이버 기계번역 API 연습", "", NaverTranslateApiActivity.class);
         addItem("갤러리", "CursorAdapter, Provider 연습", GalleryActivity.class);
+        addItem("스레드", "Thread, Handler", ThreadActivity.class);
+        addItem("스레드", "AsyncTask", AsyncTaskActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);

@@ -134,7 +134,7 @@ public class GalleryFragment extends Fragment {
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             ViewHolder viewHolder = (ViewHolder) view.getTag();
-            String path = cursor.getString(cursor.getColumnIndexOrThrow( MediaStore.Images.Media.DATA));
+            String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
 
             // uri 형태로 변환해서 뿌리기
             viewHolder.mimageView.setImageURI(Uri.parse(path));
