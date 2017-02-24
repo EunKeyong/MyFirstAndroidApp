@@ -2,6 +2,8 @@ package com.example.byg.exam_0120.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,8 +16,8 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.byg.exam_0120.R;
-import com.example.byg.exam_0120.fragments.MusicPlayer.MusicPlayerListViewFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -136,10 +138,14 @@ public class GalleryFragment extends Fragment {
             ViewHolder viewHolder = (ViewHolder) view.getTag();
             String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
 
+            Glide.with(context).load(path).into(viewHolder.mimageView);
+
+            // Bitmap bitmap = BitmapFactory.decodeFile()
             // uri 형태로 변환해서 뿌리기
-            viewHolder.mimageView.setImageURI(Uri.parse(path));
+            // viewHolder.mimageView.setImageURI(Uri.parse(path));
         }
     }
+
     private static class ViewHolder {
         ImageView mimageView;
     }
