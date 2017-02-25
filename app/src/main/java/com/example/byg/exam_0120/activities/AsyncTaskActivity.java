@@ -1,11 +1,15 @@
 package com.example.byg.exam_0120.activities;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.annotation.WorkerThread;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import com.example.byg.exam_0120.R;
 
 public class AsyncTaskActivity extends AppCompatActivity {
+
     private TextView mTextView;
 
     @Override
@@ -47,12 +52,34 @@ public class AsyncTaskActivity extends AppCompatActivity {
     }
 
     public void progressClick(View view) {
-        new ProgressTask(this).execute();
+        // new ProgressTask(this).execute();
+        ProgressDialogFragment fragment = ProgressDialogFragment.newInstance("처리 중입니다");
+        fragment.show(getSupportFragmentManager(), "download");
     }
 
     public void downloadClick(View view) {
         new DownloadTask(this).execute();
 
+    }
+
+    public static class ProgressDialogFragment extends DialogFragment {
+
+        public static ProgressDialogFragment newInstance(String message) {
+            ProgressDialogFragment fragment = new ProgressDialogFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("message", message);
+            fragment.setArguments(bundle);
+            return fragment;
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            String message = getArguments().getString("message");
+            AlertDialog.Builder builder = new AlertDialog.Builder((getActivity()));
+            builder.setMessage(message);
+            return builder.create();
+        }
     }
 
     private class DownloadTask extends AsyncTask<Void, Integer, Void> {

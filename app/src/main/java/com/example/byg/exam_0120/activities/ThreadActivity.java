@@ -29,7 +29,6 @@ public class ThreadActivity extends AppCompatActivity {
 
         // 메인 스레드에서는 UI 갱신이 가능
 
-
         new Thread(new Runnable() {
             @Override
             public void run() {
