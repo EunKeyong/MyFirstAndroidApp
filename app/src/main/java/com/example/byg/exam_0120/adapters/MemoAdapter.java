@@ -27,6 +27,10 @@ public class MemoAdapter extends BaseAdapter {
         mData = data;
     }
 
+    public void swap(List<Memo> newMemoList) {
+        mData = newMemoList;
+        notifyDataSetChanged();
+    }
     @Override
     public int getCount() {
         return mData.size();

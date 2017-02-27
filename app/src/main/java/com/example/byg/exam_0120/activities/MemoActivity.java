@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.byg.exam_0120.R;
 import com.example.byg.exam_0120.adapters.MemoAdapter;
+import com.example.byg.exam_0120.db.MemoContract;
 import com.example.byg.exam_0120.db.MemoFacade;
 import com.example.byg.exam_0120.models.Memo;
 
@@ -41,6 +43,33 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
+
+        SearchView searchView = (SearchView) findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            // 완료 눌렀을때 처리
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            // 글자 변경될때마다 호출
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // 새로운 쿼리의 결과 뿌리기
+                // 내가 입력하는 글자 포함되어있으면 뿌리기
+                List<Memo> newMemoList = mMemoFacade.getMemoList(
+                        MemoContract.MemoEntry.COLUMN_NAME_TITLE + " LIKE '%" + newText + "%'",
+                        null,
+                        null,
+                        null,
+                        null
+                );
+                mAdapter.swap(newMemoList);
+
+                return true;
+            }
+        });
 
         // DB 헬퍼
         // mDbHelper = new MemoDbHelper(this);
@@ -65,6 +94,7 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
 //                        .setAction("Action", null).show();
             }
         });
+        // 데이터
         mMemoList = mMemoFacade.getMemoList();
 
         mAdapter = new MemoAdapter(this, mMemoList);
@@ -72,6 +102,8 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
         mListView.setAdapter(mAdapter);
         //이벤트
         mListView.setOnItemClickListener(this);
+
+        registerForContextMenu(mListView);
     }
 
     //
@@ -82,7 +114,7 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
             String content = data.getStringExtra("content");
             String message = data.getStringExtra("message1");
 
-            long id = data.getLongExtra("id", -1);
+//            long id = data.getLongExtra("id", -1);
 
             // 새 메모
             if (requestCode == REQUEST_CODE_NEW_MEMO) {
@@ -105,13 +137,15 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
 //                memo.setTitle(title);
 //                memo.setContent(content);
 
+                long id = data.getLongExtra("id", -1);
                 if (mMemoFacade.update(id, title, content) > 0) {
                     mMemoList = mMemoFacade.getMemoList();
                 }
             }
             //mAdapter.notifyDataSetChanged();
-            mAdapter = new MemoAdapter(this, mMemoList);
-            mListView.setAdapter(mAdapter);
+//            mAdapter = new MemoAdapter(this, mMemoList);
+//            mListView.setAdapter(mAdapter);
+            mAdapter.swap(mMemoList);
 
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
@@ -173,6 +207,7 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_login, null, false);
         final EditText idEditText = (EditText) view.findViewById(R.id.id_edit);
         final EditText passWordEditText = (EditText) view.findViewById(R.id.password_edit);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("확인");
         builder.setMessage("정말 삭제 하시겠습니까?");
@@ -182,7 +217,9 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                String id = idEditText.getText().toString();
+                String pass = passWordEditText.getText().toString();
+                Toast.makeText(MemoActivity.this, id + " " + pass, Toast.LENGTH_SHORT).show();
             }
         });
         // 부정 버튼
@@ -199,8 +236,9 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
             mMemoList = mMemoFacade.getMemoList();
             //mAdapter.notifyDataSetChanged();
             // TODO 땜질
-            mAdapter = new MemoAdapter(this, mMemoList);
-            mListView.setAdapter(mAdapter);
+//            mAdapter = new MemoAdapter(this, mMemoList);
+//            mListView.setAdapter(mAdapter);
+            mAdapter.swap(mMemoList);
         }
     }
 }

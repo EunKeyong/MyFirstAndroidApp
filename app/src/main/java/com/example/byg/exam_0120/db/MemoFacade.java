@@ -47,56 +47,56 @@ public class MemoFacade {
     }
 
 
-    public List<Memo> getMemoList() {
-
+    /**
+     * 메모 리스트
+     *
+     * @param selection     조건절
+     * @param selectionArgs 조건절에 매핑할 인자들
+     * @param groupBy       Group by
+     * @param having        having
+     * @param orderBy       order by
+     * @return 조건에 맞는 메모 리스트를 반환
+     */
+    public List<Memo> getMemoList(String selection,
+                                  String[] selectionArgs,
+                                  String groupBy,
+                                  String having,
+                                  String orderBy) {
         ArrayList<Memo> memoArrayList = new ArrayList<>();
 
-        // DB 에서 데이터 읽어오기
+        // DB에서 읽어오기
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-        // 한줄로 가능
-        // Cursor cursor = db.rawQuery("SELECT * FROM memo", null);
-
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                MemoContract.MemoEntry._ID,
-                MemoContract.MemoEntry.COLUMN_NAME_TITLE,
-                MemoContract.MemoEntry.COLUMN_NAME_CONTENTS
-        };
-
-        // Filter results WHERE "title" = 'My Title'
-        String selection = MemoContract.MemoEntry.COLUMN_NAME_TITLE + " = ?";
-        String[] selectionArgs = {"My Title"};
-
-        // How you want the results sorted in the resulting Cursor
-        // ORDER BY _id DESC (최신입력순으로 정렬)
-        String sortOrder =
-                MemoContract.MemoEntry._ID + " DESC";
+        String order = MemoContract.MemoEntry._ID + " DESC";
 
         Cursor c = db.query(
                 MemoContract.MemoEntry.TABLE_NAME,        // The table to query
-                // 다얻을때 null -> *과 같음
                 null,                                     // The columns to return
-                // 조건 없을 때
-                null,                                     // The columns for the WHERE clause
-                null,                                     // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                sortOrder                                 // The sort order
+                selection,                                // The columns for the WHERE clause
+                selectionArgs,                            // The values for the WHERE clause
+                groupBy,                                     // don't group the rows
+                having,                                     // don't filter by row groups
+                orderBy == null ? order : orderBy                                 // The sort order
         );
 
         if (c != null) {
-            // 커서를 Memo 로 변환
+            // 커서를 Memo로 변환
 
-            // c.moveToFirst();       // 커서를 처음항목으로 이동
-
-            // 다음데이터가 없을 때 까지
+            // 커서를 처음 항목이로 이동
+//            c.moveToFirst();
             while (c.moveToNext()) {
-                String title = c.getString(c.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUMN_NAME_TITLE));
-                String content = c.getString(c.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUMN_NAME_CONTENTS));
-                long id = c.getLong(c.getColumnIndexOrThrow(MemoContract.MemoEntry._ID));
-
+                String title = c.getString(
+                        c.getColumnIndexOrThrow(
+                                MemoContract.MemoEntry.COLUMN_NAME_TITLE));
+                String content = c.getString(
+                        c.getColumnIndexOrThrow(
+                                MemoContract.MemoEntry.COLUMN_NAME_CONTENTS
+                        )
+                );
+                long id = c.getLong(
+                        c.getColumnIndexOrThrow(
+                                MemoContract.MemoEntry._ID
+                        ));
                 Memo memo = new Memo(title, content);
                 memo.setId(id);
                 memoArrayList.add(memo);
@@ -106,6 +106,68 @@ public class MemoFacade {
             c.close();
         }
         return memoArrayList;
+    }
+
+    public List<Memo> getMemoList() {
+        return getMemoList(null, null, null, null, null);
+//
+//        ArrayList<Memo> memoArrayList = new ArrayList<>();
+//
+//        // DB 에서 데이터 읽어오기
+//        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+//
+//        // 한줄로 가능
+//        // Cursor cursor = db.rawQuery("SELECT * FROM memo", null);
+//
+//        // Define a projection that specifies which columns from the database
+//        // you will actually use after this query.
+//        String[] projection = {
+//                MemoContract.MemoEntry._ID,
+//                MemoContract.MemoEntry.COLUMN_NAME_TITLE,
+//                MemoContract.MemoEntry.COLUMN_NAME_CONTENTS
+//        };
+//
+//        // Filter results WHERE "title" = 'My Title'
+//        String selection = MemoContract.MemoEntry.COLUMN_NAME_TITLE + " = ?";
+//        String[] selectionArgs = {"My Title"};
+//
+//        // How you want the results sorted in the resulting Cursor
+//        // ORDER BY _id DESC (최신입력순으로 정렬)
+//        String sortOrder =
+//                MemoContract.MemoEntry._ID + " DESC";
+//
+//        Cursor c = db.query(
+//                MemoContract.MemoEntry.TABLE_NAME,        // The table to query
+//                // 다얻을때 null -> *과 같음
+//                null,                                     // The columns to return
+//                // 조건 없을 때
+//                null,                                     // The columns for the WHERE clause
+//                null,                                     // The values for the WHERE clause
+//                null,                                     // don't group the rows
+//                null,                                     // don't filter by row groups
+//                sortOrder                                 // The sort order
+//        );
+//
+//        if (c != null) {
+//            // 커서를 Memo 로 변환
+//
+//            // c.moveToFirst();       // 커서를 처음항목으로 이동
+//
+//            // 다음데이터가 없을 때 까지
+//            while (c.moveToNext()) {
+//                String title = c.getString(c.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUMN_NAME_TITLE));
+//                String content = c.getString(c.getColumnIndexOrThrow(MemoContract.MemoEntry.COLUMN_NAME_CONTENTS));
+//                long id = c.getLong(c.getColumnIndexOrThrow(MemoContract.MemoEntry._ID));
+//
+//                Memo memo = new Memo(title, content);
+//                memo.setId(id);
+//                memoArrayList.add(memo);
+//            }
+//
+//            // 커서 닫기
+//            c.close();
+//        }
+//        return memoArrayList;
     }
 
     /**
