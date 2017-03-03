@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.byg.exam_0120.activities.AsyncTaskActivity;
 import com.example.byg.exam_0120.activities.BankActivity;
 import com.example.byg.exam_0120.activities.BasketballActivity;
+import com.example.byg.exam_0120.activities.ChatActivity;
 import com.example.byg.exam_0120.activities.ColorFragmentActivity;
 import com.example.byg.exam_0120.activities.FragmentExam1Activity;
 import com.example.byg.exam_0120.activities.GalleryActivity;
@@ -79,6 +80,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("갤러리", "CursorAdapter, Provider 연습", GalleryActivity.class);
         addItem("스레드", "Thread, Handler", ThreadActivity.class);
         addItem("스레드", "AsyncTask", AsyncTaskActivity.class);
+        addItem("네트워크 채팅", "멀티 Thread", ChatActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
@@ -131,6 +133,7 @@ public class ListViewActivity extends AppCompatActivity {
         public MyAdapter(List<Map<String, Object>> data) {
             mData = data;
         }
+
         @Override
         public int getCount() {
             return mData.size();
@@ -149,7 +152,7 @@ public class ListViewActivity extends AppCompatActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
-            if(view == null) {
+            if (view == null) {
                 view = LayoutInflater.from(viewGroup.getContext()).inflate
                         (android.R.layout.simple_list_item_2, viewGroup, false);
             }
