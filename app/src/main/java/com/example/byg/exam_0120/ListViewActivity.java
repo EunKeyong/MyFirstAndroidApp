@@ -28,9 +28,9 @@ import com.example.byg.exam_0120.activities.MainActivity;
 import com.example.byg.exam_0120.activities.MemoActivity;
 import com.example.byg.exam_0120.activities.MusicPlayerExamActivity;
 import com.example.byg.exam_0120.activities.NaverTranslateApiActivity;
+import com.example.byg.exam_0120.activities.RecyclerViewActivity;
 import com.example.byg.exam_0120.activities.SignUpActivity;
 import com.example.byg.exam_0120.activities.ThreadActivity;
-import com.example.byg.exam_0120.activities.TwoWayViewActivity;
 import com.example.byg.exam_0120.activities.ViewPagerActivity;
 import com.example.byg.exam_0120.activities.ViewPagerExamActivity;
 import com.example.byg.exam_0120.activities.WeatherActivity;
@@ -81,8 +81,8 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("갤러리", "CursorAdapter, Provider 연습", GalleryActivity.class);
         addItem("스레드", "Thread, Handler", ThreadActivity.class);
         addItem("스레드", "AsyncTask", AsyncTaskActivity.class);
-        addItem("RecyclerView", "RecyclerView", TwoWayViewActivity.class);
         addItem("네트워크 채팅", "멀티 Thread", ChatActivity.class);
+        addItem("RecyclerView", "RecyclerView", RecyclerViewActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
