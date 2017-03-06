@@ -13,8 +13,8 @@ import com.example.byg.exam_0120.models.Memo;
 
 public class MemoWriteActivity extends AppCompatActivity {
 
-    private EditText mtitleEditText;
-    private EditText mcontentEditText;
+    private EditText mTitleEditText;
+    private EditText mContentEditText;
     private long mId = -1;
 
     @Override
@@ -22,16 +22,16 @@ public class MemoWriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // 메모 추가
         setContentView(R.layout.activity_memo_write);
-        mtitleEditText = (EditText) findViewById(R.id.title_edit_text);
-        mcontentEditText = (EditText) findViewById(R.id.content_edit_text);
+        mTitleEditText = (EditText) findViewById(R.id.title_edit_text);
+        mContentEditText = (EditText) findViewById(R.id.content_edit_text);
 
         if (getIntent() != null) {
             // 보여주기
             if (getIntent().hasExtra("memo")) {
                 mId = getIntent().getLongExtra("id", -1);
                 Memo memo = (Memo) getIntent().getSerializableExtra("memo");
-                mtitleEditText.setText(memo.getTitle());
-                mcontentEditText.setText(memo.getContent());
+                mTitleEditText.setText(memo.getTitle());
+                mContentEditText.setText(memo.getContent());
                 //새메모
             }
         }
@@ -67,8 +67,10 @@ public class MemoWriteActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra("id", mId);
         intent.putExtra("message1", "저장");
-        intent.putExtra("title", mtitleEditText.getText().toString());
-        intent.putExtra("content", mcontentEditText.getText().toString());
+        intent.putExtra("title", mTitleEditText.getText().toString());
+        intent.putExtra("content", mContentEditText.getText().toString());
+        int position = getIntent().getIntExtra("position", -1);
+        intent.putExtra("position", position);
         setResult(RESULT_OK, intent);
         finish();
     }

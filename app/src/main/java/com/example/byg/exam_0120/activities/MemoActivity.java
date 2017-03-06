@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -15,26 +17,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.byg.exam_0120.R;
-import com.example.byg.exam_0120.adapters.MemoAdapter;
+import com.example.byg.exam_0120.adapters.MemoRecyclerAdapter;
 import com.example.byg.exam_0120.db.MemoContract;
 import com.example.byg.exam_0120.db.MemoFacade;
 import com.example.byg.exam_0120.models.Memo;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 
-public class MemoActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MemoActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_NEW_MEMO = 1000;
     public static final int REQUEST_CODE_UPDATE_MEMO = 1001;
 
     //private MemoDbHelper mDbHelper;
+    //private ListView mListView;
+    private RecyclerView mRecyclerView;
+    private MemoRecyclerAdapter mRecyclerAdapter;
+    //private MemoAdapter mAdapter;
 
-    private ListView mListView;
-    private MemoAdapter mAdapter;
     private List<Memo> mMemoList;
 
     private MemoFacade mMemoFacade;
@@ -65,7 +71,8 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
                         null,
                         null
                 );
-                mAdapter.swap(newMemoList);
+                mRecyclerAdapter.swap(newMemoList);
+                //  mAdapter.swap(newMemoList);
 
                 return true;
             }
@@ -77,7 +84,14 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
         // 메모 퍼사드
         mMemoFacade = new MemoFacade(this);
 
-        mListView = (ListView) findViewById(R.id.list_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.memo_list);
+
+        // 애니메이션 커스터마이징
+        RecyclerView.ItemAnimator animator = new DefaultItemAnimator();
+        animator.setChangeDuration(1000);
+        mRecyclerView.setItemAnimator(animator);
+
+        // mListView = (ListView) findViewById(R.id.list_view);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -96,14 +110,30 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
         });
         // 데이터
         mMemoList = mMemoFacade.getMemoList();
+        mRecyclerAdapter = new MemoRecyclerAdapter(mMemoList);
+        mRecyclerView.setAdapter(mRecyclerAdapter);
 
-        mAdapter = new MemoAdapter(this, mMemoList);
+        //mAdapter = new MemoAdapter(this, mMemoList);
+        //mListView.setAdapter(mAdapter);
 
-        mListView.setAdapter(mAdapter);
         //이벤트
-        mListView.setOnItemClickListener(this);
+        // mListView.setOnItemClickListener(this);
+        //registerForContextMenu(mListView);
 
-        registerForContextMenu(mListView);
+        // ContextMenu
+        registerForContextMenu(mRecyclerView);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     //
@@ -130,7 +160,8 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
                     mMemoList = mMemoFacade.getMemoList();
                     //mAdapter.notifyDataSetChanged();
                 }
-
+                mRecyclerAdapter.insert(mMemoList);
+                // mRecyclerAdapter.swap(mMemoList);
                 // 메모 수정
             } else if (requestCode == REQUEST_CODE_UPDATE_MEMO) {
 //                Memo memo = mMemoList.get((int) id);
@@ -138,14 +169,16 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
 //                memo.setContent(content);
 
                 long id = data.getLongExtra("id", -1);
+                int position = data.getIntExtra("position", -1);
+
+                // 수정
                 if (mMemoFacade.update(id, title, content) > 0) {
                     mMemoList = mMemoFacade.getMemoList();
                 }
+                mRecyclerAdapter.update(mMemoList, position);
             }
             //mAdapter.notifyDataSetChanged();
-//            mAdapter = new MemoAdapter(this, mMemoList);
-//            mListView.setAdapter(mAdapter);
-            mAdapter.swap(mMemoList);
+
 
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
@@ -156,12 +189,25 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     // 클릭하면 메모내용이 보이게
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Memo memo = mMemoList.get(position);
+//    @Override
+//    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//        Memo memo = mMemoList.get(position);
+//        Intent intent = new Intent(this, MemoWriteActivity.class);
+//        intent.putExtra("id", id);
+//        intent.putExtra("memo", memo);
+//        startActivityForResult(intent, REQUEST_CODE_UPDATE_MEMO);
+//    }
+
+
+    // 보낸이 : MemoRecyclerAdapter
+    @Subscribe
+    public void onItemClick(MemoRecyclerAdapter.ItemClickEvent event) {
+        Memo memo = mMemoList.get(event.position);
         Intent intent = new Intent(this, MemoWriteActivity.class);
-        intent.putExtra("id", id);
+        intent.putExtra("id", event.id);
         intent.putExtra("memo", memo);
+        intent.putExtra("position", event.position);
+
         startActivityForResult(intent, REQUEST_CODE_UPDATE_MEMO);
     }
 
@@ -235,10 +281,7 @@ public class MemoActivity extends AppCompatActivity implements AdapterView.OnIte
         if (deleted != 0) {
             mMemoList = mMemoFacade.getMemoList();
             //mAdapter.notifyDataSetChanged();
-            // TODO 땜질
-//            mAdapter = new MemoAdapter(this, mMemoList);
-//            mListView.setAdapter(mAdapter);
-            mAdapter.swap(mMemoList);
+            mRecyclerAdapter.swap(mMemoList);
         }
     }
 }
