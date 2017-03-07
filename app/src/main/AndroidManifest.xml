@@ -91,7 +91,17 @@
         <activity android:name=".activities.AsyncTaskActivity" />
         <activity android:name=".activities.ChatActivity" />
         <activity android:name=".activities.TwoWayViewActivity" />
-        <activity android:name=".activities.RecyclerViewActivity"></activity>
+        <activity android:name=".activities.RecyclerViewActivity" />
+        <activity android:name=".activities.BroadcastReceiverActivity" />
+
+        <receiver
+            android:name=".receiver.MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

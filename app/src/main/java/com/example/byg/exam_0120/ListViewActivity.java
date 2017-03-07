@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.byg.exam_0120.activities.AsyncTaskActivity;
 import com.example.byg.exam_0120.activities.BankActivity;
 import com.example.byg.exam_0120.activities.BasketballActivity;
+import com.example.byg.exam_0120.activities.BroadcastReceiverActivity;
 import com.example.byg.exam_0120.activities.ChatActivity;
 import com.example.byg.exam_0120.activities.ColorFragmentActivity;
 import com.example.byg.exam_0120.activities.FragmentExam1Activity;
@@ -83,6 +84,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("스레드", "AsyncTask", AsyncTaskActivity.class);
         addItem("네트워크 채팅", "멀티 Thread", ChatActivity.class);
         addItem("RecyclerView", "RecyclerView", RecyclerViewActivity.class);
+        addItem("BroadcastReceiver", "로컬 브로드캐스트", BroadcastReceiverActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
