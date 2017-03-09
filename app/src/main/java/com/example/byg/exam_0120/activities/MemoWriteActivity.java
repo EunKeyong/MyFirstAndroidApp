@@ -1,13 +1,18 @@
 package com.example.byg.exam_0120.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.byg.exam_0120.R;
 import com.example.byg.exam_0120.models.Memo;
 
@@ -17,13 +22,26 @@ public class MemoWriteActivity extends AppCompatActivity {
     private EditText mContentEditText;
     private long mId = -1;
 
+    private ImageView mImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 메모 추가
         setContentView(R.layout.activity_memo_write);
+
+
         mTitleEditText = (EditText) findViewById(R.id.title_edit_text);
         mContentEditText = (EditText) findViewById(R.id.content_edit_text);
+
+        mImageView = (ImageView) findViewById(R.id.appbar_image);
+
+        // 툴바가 액션바 대체
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // 타이틀 없애기
+        getSupportActionBar().setTitle("");
 
         if (getIntent() != null) {
             // 보여주기
@@ -41,7 +59,8 @@ public class MemoWriteActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_memo, menu);
-        return super.onCreateOptionsMenu(menu);
+        //return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -54,8 +73,9 @@ public class MemoWriteActivity extends AppCompatActivity {
                 // 새메모
                 save();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void cancel() {
@@ -74,4 +94,40 @@ public class MemoWriteActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
+
+    public void onImageClick(View view) {
+        // 그림 줘
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+
+        startActivityForResult(intent, 1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1000 && resultCode == RESULT_OK && data != null) {
+            // 그림이 정상적으로 선택되었을 때
+
+            // 사진 경로
+            Uri imageUri = data.getData();
+
+            // 사진을 bitmap 으로 얻기
+            // Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+            // 이미지 뷰에 bitmap 설정
+            // mImageView.setImageBitmap(bitmap);
+
+            Glide.with(this).loadFromMediaStore(imageUri).into(mImageView);
+            // 라이브러리
+            //Glide.with(this).load(imageUri.toString()).into(mImageView);
+
+            // 이미지 썸네일 얻기
+            // Glide.with(this).loadFromMediaStore(imageUri).thumbnail(0.1f).into(mImageView);
+            // 안드로이드 기본사용
+            // Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, 100, 100);
+
+        }
+    }
 }
+

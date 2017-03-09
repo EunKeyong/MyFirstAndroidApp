@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.byg.exam_0120.R;
@@ -39,7 +38,6 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     public void onImageClick(View view) {
-        Toast.makeText(this, "이미지 클릭", Toast.LENGTH_SHORT).show();
 
         // 암시적 인텐트(이미지얻기)
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
