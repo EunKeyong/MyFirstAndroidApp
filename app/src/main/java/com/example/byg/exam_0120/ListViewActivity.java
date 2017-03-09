@@ -30,6 +30,7 @@ import com.example.byg.exam_0120.activities.MemoActivity;
 import com.example.byg.exam_0120.activities.MusicPlayerExamActivity;
 import com.example.byg.exam_0120.activities.NaverTranslateApiActivity;
 import com.example.byg.exam_0120.activities.RecyclerViewActivity;
+import com.example.byg.exam_0120.activities.ScrollingActivity;
 import com.example.byg.exam_0120.activities.SignUpActivity;
 import com.example.byg.exam_0120.activities.ThreadActivity;
 import com.example.byg.exam_0120.activities.ViewPagerActivity;
@@ -85,6 +86,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("네트워크 채팅", "멀티 Thread", ChatActivity.class);
         addItem("RecyclerView", "RecyclerView", RecyclerViewActivity.class);
         addItem("BroadcastReceiver", "로컬 브로드캐스트", BroadcastReceiverActivity.class);
+        addItem("스크롤 테크닉", "CoordinatorLayout", ScrollingActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
