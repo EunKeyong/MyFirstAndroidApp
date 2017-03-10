@@ -32,6 +32,7 @@ import com.example.byg.exam_0120.activities.NaverTranslateApiActivity;
 import com.example.byg.exam_0120.activities.NavigationDrawerActivity;
 import com.example.byg.exam_0120.activities.RecyclerViewActivity;
 import com.example.byg.exam_0120.activities.ScrollingActivity;
+import com.example.byg.exam_0120.activities.ServiceActivity;
 import com.example.byg.exam_0120.activities.SignUpActivity;
 import com.example.byg.exam_0120.activities.ThreadActivity;
 import com.example.byg.exam_0120.activities.ViewPagerActivity;
@@ -89,6 +90,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("BroadcastReceiver", "로컬 브로드캐스트", BroadcastReceiverActivity.class);
         addItem("스크롤 테크닉", "CoordinatorLayout", ScrollingActivity.class);
         addItem("NavigationDrawer", "기본 템플릿", NavigationDrawerActivity.class);
+        addItem("Service", "IntentService, Service, bindService", ServiceActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);

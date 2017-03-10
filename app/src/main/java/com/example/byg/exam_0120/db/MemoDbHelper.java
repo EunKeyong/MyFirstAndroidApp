@@ -28,7 +28,7 @@ public class MemoDbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // 업그레이드 처리
         if(oldVersion < newVersion) {
-            db.execSQL("ALTER TABLE" + MemoContract.MemoEntry.TABLE_NAME + " ADD " + MemoContract.MemoEntry.COLUMN_NAME_IMAGE + " TEXT");
+            db.execSQL("ALTER TABLE " + MemoContract.MemoEntry.TABLE_NAME + " ADD " + MemoContract.MemoEntry.COLUMN_NAME_IMAGE + " TEXT");
         }
     }
 }
