@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.byg.exam_0120.R;
 import com.example.byg.exam_0120.models.Memo;
+import com.example.byg.exam_0120.utils.MyUtils;
 
 public class MemoWriteActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class MemoWriteActivity extends AppCompatActivity {
     private long mId = -1;
 
     private ImageView mImageView;
+    private String mImagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,6 @@ public class MemoWriteActivity extends AppCompatActivity {
 
         mTitleEditText = (EditText) findViewById(R.id.title_edit_text);
         mContentEditText = (EditText) findViewById(R.id.content_edit_text);
-
         mImageView = (ImageView) findViewById(R.id.appbar_image);
 
         // 툴바가 액션바 대체
@@ -46,7 +47,14 @@ public class MemoWriteActivity extends AppCompatActivity {
         if (getIntent() != null) {
             // 보여주기
             if (getIntent().hasExtra("memo")) {
+
                 mId = getIntent().getLongExtra("id", -1);
+                mImagePath = getIntent().getStringExtra("image");
+                if (mImagePath != null) {
+
+                    Glide.with(this).load(mImagePath).into(mImageView);
+                }
+
                 Memo memo = (Memo) getIntent().getSerializableExtra("memo");
                 mTitleEditText.setText(memo.getTitle());
                 mContentEditText.setText(memo.getContent());
@@ -89,6 +97,7 @@ public class MemoWriteActivity extends AppCompatActivity {
         intent.putExtra("message1", "저장");
         intent.putExtra("title", mTitleEditText.getText().toString());
         intent.putExtra("content", mContentEditText.getText().toString());
+        intent.putExtra("image", mImagePath);
         int position = getIntent().getIntExtra("position", -1);
         intent.putExtra("position", position);
         setResult(RESULT_OK, intent);
@@ -112,13 +121,11 @@ public class MemoWriteActivity extends AppCompatActivity {
 
             // 사진 경로
             Uri imageUri = data.getData();
+            mImagePath = MyUtils.getRealPath(this, imageUri);
 
-            // 사진을 bitmap 으로 얻기
-            // Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-            // 이미지 뷰에 bitmap 설정
-            // mImageView.setImageBitmap(bitmap);
+            // 라이브러리
+            Glide.with(this).load(mImagePath).into(mImageView);
 
-            Glide.with(this).loadFromMediaStore(imageUri).into(mImageView);
             // 라이브러리
             //Glide.with(this).load(imageUri.toString()).into(mImageView);
 
@@ -129,5 +136,6 @@ public class MemoWriteActivity extends AppCompatActivity {
 
         }
     }
+
 }
 

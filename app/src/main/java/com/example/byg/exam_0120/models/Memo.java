@@ -11,10 +11,19 @@ public class Memo implements Serializable{
     private long id;
     private String title;
     private String content;
+    private String imagePath;
 
     public Memo(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getTitle() {
@@ -44,8 +53,10 @@ public class Memo implements Serializable{
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Memo{");
-        sb.append("title='").append(title).append('\'');
+        sb.append("id=").append(id);
+        sb.append(", title='").append(title).append('\'');
         sb.append(", content='").append(content).append('\'');
+        sb.append(", imagePath='").append(imagePath).append('\'');
         sb.append('}');
         return sb.toString();
     }

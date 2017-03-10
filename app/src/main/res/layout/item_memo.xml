@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,18 +15,26 @@
         android:background="?android:attr/selectableItemBackground"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:transitionName="image"/>
+
         <TextView
             android:id="@+id/title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#2E3D5E"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:transitionName="title"/>
 
         <TextView
             android:id="@+id/content_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#2E3D5E"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:transitionName="content"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

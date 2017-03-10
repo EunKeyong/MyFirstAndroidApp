@@ -29,7 +29,7 @@ public class MemoFacade {
      * @param contents 내용
      * @return 추가된 row 의 id, 만약 에러 발생시 -1
      */
-    public long insert(String title, String contents) {
+    public long insert(String title, String contents, String imagePath) {
         // Gets the data repository in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -40,6 +40,10 @@ public class MemoFacade {
         ContentValues values = new ContentValues();
         values.put(MemoContract.MemoEntry.COLUMN_NAME_TITLE, title);
         values.put(MemoContract.MemoEntry.COLUMN_NAME_CONTENTS, contents);
+        if (imagePath != null) {
+
+            values.put(MemoContract.MemoEntry.COLUMN_NAME_IMAGE, imagePath);
+        }
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(MemoContract.MemoEntry.TABLE_NAME, null, values);
@@ -97,8 +101,14 @@ public class MemoFacade {
                         c.getColumnIndexOrThrow(
                                 MemoContract.MemoEntry._ID
                         ));
+                String imageUri = c.getString(
+                        c.getColumnIndexOrThrow(
+                                MemoContract.MemoEntry.COLUMN_NAME_IMAGE
+                        )
+                );
                 Memo memo = new Memo(title, content);
                 memo.setId(id);
+                memo.setImagePath(imageUri);
                 memoArrayList.add(memo);
             }
 
@@ -201,7 +211,7 @@ public class MemoFacade {
      * @param contents 내용
      * @return 수정된 메모 수
      */
-    public int update(long id, String title, String contents) {
+    public int update(long id, String title, String contents, String imageUri) {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // New value for one column
@@ -209,6 +219,10 @@ public class MemoFacade {
         // 업데이트할 데이터
         values.put(MemoContract.MemoEntry.COLUMN_NAME_TITLE, title);
         values.put(MemoContract.MemoEntry.COLUMN_NAME_CONTENTS, contents);
+        if (imageUri != null) {
+
+            values.put(MemoContract.MemoEntry.COLUMN_NAME_IMAGE, imageUri);
+        }
 
         int count = db.update(
                 MemoContract.MemoEntry.TABLE_NAME,

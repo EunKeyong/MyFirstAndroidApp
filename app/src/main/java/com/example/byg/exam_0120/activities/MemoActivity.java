@@ -2,19 +2,26 @@ package com.example.byg.exam_0120.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.transition.ChangeImageTransform;
+import android.transition.TransitionSet;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,13 +49,23 @@ public class MemoActivity extends AppCompatActivity {
     //private MemoAdapter mAdapter;
 
     private List<Memo> mMemoList;
-
     private MemoFacade mMemoFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // 화면 전환효과 키기
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            TransitionSet set = new TransitionSet();
+            set.addTransition(new ChangeImageTransform());
+            getWindow().setExitTransition(set);
+            getWindow().setEnterTransition(set);
+        }
 
         SearchView searchView = (SearchView) findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -110,7 +127,7 @@ public class MemoActivity extends AppCompatActivity {
         });
         // 데이터
         mMemoList = mMemoFacade.getMemoList();
-        mRecyclerAdapter = new MemoRecyclerAdapter(mMemoList);
+        mRecyclerAdapter = new MemoRecyclerAdapter(this, mMemoList);
         mRecyclerView.setAdapter(mRecyclerAdapter);
 
         //mAdapter = new MemoAdapter(this, mMemoList);
@@ -139,10 +156,12 @@ public class MemoActivity extends AppCompatActivity {
     //
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             String title = data.getStringExtra("title");
             String content = data.getStringExtra("content");
             String message = data.getStringExtra("message1");
+            String imageUri = data.getStringExtra("image");
 
 //            long id = data.getLongExtra("id", -1);
 
@@ -150,7 +169,7 @@ public class MemoActivity extends AppCompatActivity {
             if (requestCode == REQUEST_CODE_NEW_MEMO) {
                 //mMemoList.add(new Memo(title, content));
                 // db에 정보 삽입
-                long newRowId = mMemoFacade.insert(title, content);
+                long newRowId = mMemoFacade.insert(title, content, imageUri);
                 if (newRowId == -1) {
                     // 에러
                     Toast.makeText(this, "저장이 실패하였습니다", Toast.LENGTH_SHORT).show();
@@ -172,7 +191,7 @@ public class MemoActivity extends AppCompatActivity {
                 int position = data.getIntExtra("position", -1);
 
                 // 수정
-                if (mMemoFacade.update(id, title, content) > 0) {
+                if (mMemoFacade.update(id, title, content, imageUri) > 0) {
                     mMemoList = mMemoFacade.getMemoList();
                 }
                 mRecyclerAdapter.update(mMemoList, position);
@@ -185,7 +204,7 @@ public class MemoActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "취소 되었습니다", Toast.LENGTH_SHORT).show();
         }
-        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     // 클릭하면 메모내용이 보이게
@@ -203,12 +222,22 @@ public class MemoActivity extends AppCompatActivity {
     @Subscribe
     public void onItemClick(MemoRecyclerAdapter.ItemClickEvent event) {
         Memo memo = mMemoList.get(event.position);
+
+
         Intent intent = new Intent(this, MemoWriteActivity.class);
         intent.putExtra("id", event.id);
         intent.putExtra("memo", memo);
         intent.putExtra("position", event.position);
+        intent.putExtra("image", memo.getImagePath());
 
-        startActivityForResult(intent, REQUEST_CODE_UPDATE_MEMO);
+
+
+        ActivityCompat.startActivityForResult(this, intent, REQUEST_CODE_UPDATE_MEMO,
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                        Pair.create(event.imageView, "image"),
+                        Pair.create(event.titleView, "title"),
+                        Pair.create(event.contentView, "content")).toBundle());
+
     }
 
     @Override
