@@ -25,6 +25,7 @@ import com.example.byg.exam_0120.activities.ImageFragmentActivity;
 import com.example.byg.exam_0120.activities.LifeCycleActivity;
 import com.example.byg.exam_0120.activities.ListViewExam3Activity;
 import com.example.byg.exam_0120.activities.ListViewExamActivity;
+import com.example.byg.exam_0120.activities.LoginActivity;
 import com.example.byg.exam_0120.activities.MainActivity;
 import com.example.byg.exam_0120.activities.MemoActivity;
 import com.example.byg.exam_0120.activities.MusicPlayerExamActivity;
@@ -91,6 +92,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("스크롤 테크닉", "CoordinatorLayout", ScrollingActivity.class);
         addItem("NavigationDrawer", "기본 템플릿", NavigationDrawerActivity.class);
         addItem("Service", "IntentService, Service, bindService", ServiceActivity.class);
+        addItem("회원가입, 로그인", "PHP와 연동", LoginActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
