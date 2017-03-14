@@ -1,20 +1,24 @@
 package com.example.byg.exam_0120.fragments;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.byg.exam_0120.R;
@@ -24,7 +28,7 @@ import com.example.byg.exam_0120.R;
  * Activities that contain this fragment must implement the
  * {@link GalleryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link GalleryFragment#newInstance} factory method to
+ * Use the  factory method to
  * create an instance of this fragment.
  */
 public class GalleryFragment extends Fragment {
@@ -69,7 +73,99 @@ public class GalleryFragment extends Fragment {
         // 뷰
         mGridView = (GridView) view.findViewById(R.id.grid_view);
 
-        // 사진 정보
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            // 설명을 보여줄것인가
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+                // 사용자 응답을 기다리는 설명을 비동기로 보여주기
+                // 권한 체크를 안하면 이 기능을 사용할수 없다고 어필하고
+                // 다시 권한요청
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1000);
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+                // 권한을 요청
+
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1000);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }else  {
+            // 이미 권한이 있을 때
+            getPicture();
+        }
+
+//        // 사진 정보
+//        // 미디어(사진, 동영상, 음악) media db
+//        // provider 로 media db 정보를 가져와야 됨
+//        Cursor cursor = getActivity().getContentResolver().query(
+//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                null,
+//                null,
+//                null,
+//                null
+//        );
+//
+//        // 사진 뿌릴 어댑터
+//        MyCursorAdapter adapter = new MyCursorAdapter(getActivity(), cursor);
+//        mGridView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case 1000: {
+                // If request is cancelled, the result arrays are empty.
+                // 승인받은권한이몇개인지
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // 사용자가 수락한경우 처리
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                    // 승인 됨
+                    Toast.makeText(getActivity(), "권한 승인됨", Toast.LENGTH_SHORT).show();
+                    //        // 사진 정보
+                    getPicture();
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    // 다이얼로그 표시(이 권한을 수락하지 않으면 이 기능 사용할 수 없습니다)
+                    // 권한을 설정하시려면 설정 > 애플리케이션 > 앱이름 가서 설정하세요
+                    // 앱 종료
+                    Toast.makeText(getActivity(), "권한 거부됨", Toast.LENGTH_SHORT).show();
+
+                    getActivity().finish();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+
+    }
+
+    private void getPicture() {
         // 미디어(사진, 동영상, 음악) media db
         // provider 로 media db 정보를 가져와야 됨
         Cursor cursor = getActivity().getContentResolver().query(
@@ -83,6 +179,11 @@ public class GalleryFragment extends Fragment {
         // 사진 뿌릴 어댑터
         MyCursorAdapter adapter = new MyCursorAdapter(getActivity(), cursor);
         mGridView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
