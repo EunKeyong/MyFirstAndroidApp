@@ -135,7 +135,8 @@
         <activity
             android:name=".activities.SignUp2Activity"
             android:label="@string/title_activity_sign_up2" />
-        <activity android:name=".activities.RealmExamActivity"></activity>
+        <activity android:name=".activities.RealmExamActivity" />
+        <activity android:name=".activities.MusicPlayerActivity"></activity>
     </application>
 
 </manifest>

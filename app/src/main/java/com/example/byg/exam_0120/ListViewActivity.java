@@ -28,6 +28,7 @@ import com.example.byg.exam_0120.activities.ListViewExamActivity;
 import com.example.byg.exam_0120.activities.LoginActivity;
 import com.example.byg.exam_0120.activities.MainActivity;
 import com.example.byg.exam_0120.activities.MemoActivity;
+import com.example.byg.exam_0120.activities.MusicPlayerActivity;
 import com.example.byg.exam_0120.activities.MusicPlayerExamActivity;
 import com.example.byg.exam_0120.activities.NaverTranslateApiActivity;
 import com.example.byg.exam_0120.activities.NavigationDrawerActivity;
@@ -95,6 +96,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("Service", "IntentService, Service, bindService", ServiceActivity.class);
         addItem("회원가입, 로그인", "PHP와 연동", LoginActivity.class);
         addItem("로그인", "Realm", RealmExamActivity.class);
+        addItem("뮤직 플레이어", "뮤직플레이어", MusicPlayerActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
