@@ -18,6 +18,7 @@ import com.example.byg.exam_0120.activities.BasketballActivity;
 import com.example.byg.exam_0120.activities.BroadcastReceiverActivity;
 import com.example.byg.exam_0120.activities.ChatActivity;
 import com.example.byg.exam_0120.activities.ColorFragmentActivity;
+import com.example.byg.exam_0120.activities.CustomDesignActivity;
 import com.example.byg.exam_0120.activities.FragmentExam1Activity;
 import com.example.byg.exam_0120.activities.GalleryActivity;
 import com.example.byg.exam_0120.activities.GeoIpActivity;
@@ -97,6 +98,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("회원가입, 로그인", "PHP와 연동", LoginActivity.class);
         addItem("로그인", "Realm", RealmExamActivity.class);
         addItem("뮤직 플레이어", "뮤직플레이어", MusicPlayerActivity.class);
+        addItem("커스텀 디자인", "Toast", CustomDesignActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
