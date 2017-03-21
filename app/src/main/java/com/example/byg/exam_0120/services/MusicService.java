@@ -9,7 +9,6 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 
@@ -19,15 +18,16 @@ import java.io.IOException;
 
 public class MusicService extends Service {
     public static String ACTION_PLAY = "play";
-    public static String ACTION_PAUSE = "pause";
+    public static String ACTION_RESUME = "resume";
+    // public static String ACTION_PAUSE = "pause";
 
     private MediaPlayer mMediaPlayer;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//        mMediaPlayer = new MediaPlayer();
+//        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         EventBus.getDefault().register(this);
 
@@ -43,16 +43,36 @@ public class MusicService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String action = intent.getAction();
         if (ACTION_PLAY.equals(action)) {
+            // 플레이중이면 중지
             playMusic((Uri) intent.getParcelableExtra("uri"));
-        }else if(ACTION_PAUSE.equals(action)) {
 
+        } else if (ACTION_RESUME.equals(action)) {
+            clickResumePlayButton();
         }
-            return START_STICKY;
+        return START_STICKY;
     }
 
 
     public void playMusic(Uri uri) {
         try {
+            if (mMediaPlayer == null) {
+
+                mMediaPlayer = new MediaPlayer();
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            }
+            if (mMediaPlayer.isPlaying()) {
+                mMediaPlayer.stop();
+                mMediaPlayer.release();
+                mMediaPlayer = new MediaPlayer();
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            }
+
+            // 음악이재생중이면 그음악 중지시키고 재생성
+//            mMediaPlayer.stop();
+//            mMediaPlayer.release();
+//            mMediaPlayer = new MediaPlayer();
+//            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
             mMediaPlayer.setDataSource(this, uri);
             mMediaPlayer.prepareAsync();
             mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -66,17 +86,19 @@ public class MusicService extends Service {
                     EventBus.getDefault().post(isPlaying());
                 }
             });
-        } catch (IOException e) {
+
+        } catch (IOException e)
+
+        {
             e.printStackTrace();
         }
 
     }
 
-    @Subscribe
-    public void clickPlayButton() {
-        if(isPlaying()) {
+    public void clickResumePlayButton() {
+        if (isPlaying()) {
             mMediaPlayer.pause();
-        }else {
+        } else {
             mMediaPlayer.start();
         }
 
@@ -85,6 +107,7 @@ public class MusicService extends Service {
          */
         EventBus.getDefault().post(isPlaying());
     }
+
     public boolean isPlaying() {
         if (mMediaPlayer != null) {
 
@@ -92,6 +115,7 @@ public class MusicService extends Service {
         }
         return false;
     }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

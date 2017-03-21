@@ -1,5 +1,6 @@
 package com.example.byg.exam_0120.fragments.music;
 
+import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.byg.exam_0120.R;
-import com.example.byg.exam_0120.activities.MusicPlayerActivity;
+import com.example.byg.exam_0120.services.MusicService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -80,9 +81,13 @@ public class MusicControllerFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        /**
-         * {@link MusicPlayerActivity#clickPlayButton(View)}
-         */
-        EventBus.getDefault().post(v);
+//        /**
+//         * {@link com.example.byg.exam_0120.services.MusicService#clickPlayButton(View)}
+//         */
+//        EventBus.getDefault().post(v);
+
+        Intent intent = new Intent(getActivity(), MusicService.class);
+        intent.setAction(MusicService.ACTION_RESUME);
+        getActivity().startService(intent);
     }
 }
