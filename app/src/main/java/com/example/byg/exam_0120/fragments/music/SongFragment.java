@@ -21,8 +21,6 @@ import com.example.byg.exam_0120.R;
 import com.example.byg.exam_0120.adapters.CursorRecyclerViewAdapter;
 import com.example.byg.exam_0120.services.MusicService;
 
-import org.greenrobot.eventbus.EventBus;
-
 /**
  * Created by byg on 2017-03-16.
  */
@@ -105,7 +103,9 @@ public class SongFragment extends Fragment {
                      * 아래쪽 프래그먼트로 정보 쏘기
                      * {@link MusicControllerFragment#updateUI(MediaMetadataRetriever)}
                      */
-                    EventBus.getDefault().post(retriever);
+    //                EventBus.getDefault().post(retriever);
+
+
                 }
             });
         }

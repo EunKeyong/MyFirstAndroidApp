@@ -3,8 +3,10 @@ package com.example.byg.exam_0120.services;
 import android.app.Service;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
@@ -23,20 +25,22 @@ public class MusicService extends Service {
 
     private MediaPlayer mMediaPlayer;
 
+    private MediaMetadataRetriever mRetriever;
+
     @Override
     public void onCreate() {
         super.onCreate();
 //        mMediaPlayer = new MediaPlayer();
 //        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        EventBus.getDefault().register(this);
+      //  EventBus.getDefault().register(this);
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
+       // EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -55,6 +59,9 @@ public class MusicService extends Service {
 
     public void playMusic(Uri uri) {
         try {
+            // 현재 재생중인 정보
+            mRetriever = new MediaMetadataRetriever();
+            mRetriever.setDataSource(this, uri);
             if (mMediaPlayer == null) {
 
                 mMediaPlayer = new MediaPlayer();
@@ -81,11 +88,17 @@ public class MusicService extends Service {
                     mp.start();
 
                     /**
-                     * {@link com.example.byg.exam_0120.fragments.music.MusicControllerFragment#updatePlayButton(Boolean)}
+                     * {@link com.example.byg.exam_0120.fragments.music.MusicControllerFragment#updateUI(Boolean)}
                      */
                     EventBus.getDefault().post(isPlaying());
                 }
             });
+//
+
+//            // 미디어 정보
+//            mTitle = mRetriever.extractMetadata((MediaMetadataRetriever.METADATA_KEY_TITLE));
+//            mArtist = mRetriever.extractMetadata((MediaMetadataRetriever.METADATA_KEY_ARTIST));
+//            mDuration = mRetriever.extractMetadata((MediaMetadataRetriever.METADATA_KEY_DURATION));
 
         } catch (IOException e)
 
@@ -95,6 +108,20 @@ public class MusicService extends Service {
 
     }
 
+    public MediaMetadataRetriever getMetaDataRetriever() {
+        return mRetriever;
+    }
+
+//    public String getCurrentMusicTitle() {
+//        return mTitle;
+//    }
+//    public String getCurrentMusicArtist() {
+//        return mArtist;
+//    }
+//    public String getCurrentMusicDuration() {
+//        return mDuration;
+//    }
+
     public void clickResumePlayButton() {
         if (isPlaying()) {
             mMediaPlayer.pause();
@@ -103,7 +130,7 @@ public class MusicService extends Service {
         }
 
         /**
-         * {@link com.example.byg.exam_0120.fragments.music.MusicControllerFragment#updatePlayButton(Boolean)}
+         * {@link com.example.byg.exam_0120.fragments.music.MusicControllerFragment#updateUI(Boolean)}
          */
         EventBus.getDefault().post(isPlaying());
     }
@@ -119,6 +146,15 @@ public class MusicService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+
+        return mBinder;
+    }
+
+    private final IBinder mBinder = new LocalBinder();
+
+    public class LocalBinder extends Binder {
+        public MusicService getService() {
+            return MusicService.this;
+        }
     }
 }
