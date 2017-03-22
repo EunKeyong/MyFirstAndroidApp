@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/album_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -44,12 +45,14 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/currenttime_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="0:00" />
 
         <TextView
+            android:id="@+id/duration_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

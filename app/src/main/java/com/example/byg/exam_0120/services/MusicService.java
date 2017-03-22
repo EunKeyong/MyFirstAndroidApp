@@ -56,6 +56,16 @@ public class MusicService extends Service {
         return START_STICKY;
     }
 
+    public MediaPlayer getMediaPlayer() {
+        return mMediaPlayer;
+    }
+    public int getDuration() {
+        return mMediaPlayer.getDuration();
+    }
+
+    public int getCurrentPosition() {
+        return mMediaPlayer.getCurrentPosition();
+    }
 
     public void playMusic(Uri uri) {
         try {
