@@ -14,6 +14,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.ChangeImageTransform;
 import android.transition.TransitionSet;
 import android.view.ContextMenu;
@@ -130,9 +131,31 @@ public class MemoActivity extends AppCompatActivity {
         mRecyclerAdapter = new MemoRecyclerAdapter(this, mMemoList);
         mRecyclerView.setAdapter(mRecyclerAdapter);
 
+        // 스와이프 삭제 구현
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                // 왼쪽이나 오른쪽으로 터치시 스와이프
+                return makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) |
+                        makeFlag(ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.UP | ItemTouchHelper.DOWN);
+            }
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            // 스와이프 끝났을때
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                mRecyclerAdapter.delete(viewHolder.getAdapterPosition());
+            }
+        });
+        helper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.addItemDecoration(helper);
         //mAdapter = new MemoAdapter(this, mMemoList);
         //mListView.setAdapter(mAdapter);
-
+        mRecyclerView.setAdapter(mRecyclerAdapter);
         //이벤트
         // mListView.setOnItemClickListener(this);
         //registerForContextMenu(mListView);
@@ -229,7 +252,6 @@ public class MemoActivity extends AppCompatActivity {
         intent.putExtra("memo", memo);
         intent.putExtra("position", event.position);
         intent.putExtra("image", memo.getImagePath());
-
 
 
         ActivityCompat.startActivityForResult(this, intent, REQUEST_CODE_UPDATE_MEMO,
