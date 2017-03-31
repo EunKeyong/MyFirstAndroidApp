@@ -32,6 +32,7 @@ public class MusicControllerFragment extends Fragment implements View.OnClickLis
     private TextView mTitleTextView;
     private TextView mArtistTextView;
     private Button mPlayButton;
+
     private MusicService mService;
     boolean mBound = false;
 

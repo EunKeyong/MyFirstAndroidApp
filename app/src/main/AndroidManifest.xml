@@ -137,7 +137,12 @@
             android:label="@string/title_activity_sign_up2" />
         <activity android:name=".activities.RealmExamActivity" />
         <activity android:name=".activities.MusicPlayerActivity" />
-        <activity android:name=".activities.CustomDesignActivity"/>
+        <activity android:name=".activities.CustomDesignActivity" />
+        <activity
+            android:name=".activities.DialogThemeActivity"
+            android:theme="@style/AlertDialog.AppCompat" />
+        <activity android:name=".activities.DataBindingActivity" />
+        <activity android:name=".activities.XMLParsingActivity" />
     </application>
 
 </manifest>

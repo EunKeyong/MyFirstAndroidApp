@@ -1,5 +1,6 @@
 package com.example.byg.exam_0120.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,5 +31,18 @@ public class CustomDesignActivity extends AppCompatActivity {
 //                0, -300);
 //        result.show();
         MyUtils.makeToast(this, "나만의 토스트", Toast.LENGTH_SHORT).show();
+    }
+
+    public void showDialog(View view) {
+       // AlertDialog.Builder builder = new AlertDialog.Builder(this, android.R.style.Theme_Holo_Dialog);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("제목");
+//        builder.setMessage("메세지");
+//        builder.show();
+
+        Intent intent = new Intent(this, DialogThemeActivity.class);
+        intent.putExtra("data", "zzzzz");
+        intent.putExtra("image", "zzzzz");
+        startActivity(intent);
     }
 }
