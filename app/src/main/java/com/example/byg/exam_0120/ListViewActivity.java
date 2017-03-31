@@ -44,6 +44,7 @@ import com.example.byg.exam_0120.activities.ViewPagerExamActivity;
 import com.example.byg.exam_0120.activities.WeatherActivity;
 import com.example.byg.exam_0120.activities.WeatherApiActivity;
 import com.example.byg.exam_0120.activities.WebBrowserActivity;
+import com.example.byg.exam_0120.activities.XMLParsingActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,6 +100,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("로그인", "Realm", RealmExamActivity.class);
         addItem("뮤직 플레이어", "뮤직플레이어", MusicPlayerActivity.class);
         addItem("커스텀 디자인", "Toast", CustomDesignActivity.class);
+        addItem("뉴스", "XML 파싱", XMLParsingActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
