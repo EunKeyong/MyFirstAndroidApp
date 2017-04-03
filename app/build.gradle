@@ -5,7 +5,7 @@ android {
     buildToolsVersion '25.0.2'
     defaultConfig {
         applicationId "com.example.byg.exam_0120"
-        minSdkVersion 21
+        //minSdkVersion 21
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -20,9 +20,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     dataBinding {
         enabled = true
+    }
+    productFlavors {
+        dev {
+            minSdkVersion 21
+        }
+        prod {
+            minSdkVersion 17
+        }
     }
 }
 
