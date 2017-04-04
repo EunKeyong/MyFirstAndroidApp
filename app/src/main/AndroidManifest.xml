@@ -143,6 +143,9 @@
             android:theme="@style/AlertDialog.AppCompat" />
         <activity android:name=".activities.DataBindingActivity" />
         <activity android:name=".activities.XMLParsingActivity" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
