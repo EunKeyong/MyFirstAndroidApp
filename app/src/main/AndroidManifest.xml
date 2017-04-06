@@ -146,7 +146,8 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".activities.FacebookLoginActivity"></activity>
+        <activity android:name=".activities.FacebookLoginActivity" />
+        <activity android:name=".activities.AnimationActivity"></activity>
     </application>
 
 </manifest>

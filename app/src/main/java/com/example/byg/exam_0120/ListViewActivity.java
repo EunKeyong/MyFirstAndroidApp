@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.byg.exam_0120.activities.AnimationActivity;
 import com.example.byg.exam_0120.activities.AsyncTaskActivity;
 import com.example.byg.exam_0120.activities.BankActivity;
 import com.example.byg.exam_0120.activities.BasketballActivity;
@@ -103,6 +104,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("커스텀 디자인", "Toast", CustomDesignActivity.class);
         addItem("뉴스", "XML 파싱", XMLParsingActivity.class);
         addItem("설정 화면", "SettingsActivity", SettingsActivity.class);
+        addItem("설정 화면", "SettingsActivity", AnimationActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
