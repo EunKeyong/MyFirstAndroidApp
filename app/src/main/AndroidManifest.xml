@@ -145,7 +145,8 @@
         <activity android:name=".activities.XMLParsingActivity" />
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".activities.FacebookLoginActivity"></activity>
     </application>
 
 </manifest>
