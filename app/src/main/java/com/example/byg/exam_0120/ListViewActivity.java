@@ -34,6 +34,7 @@ import com.example.byg.exam_0120.activities.MusicPlayerActivity;
 import com.example.byg.exam_0120.activities.MusicPlayerExamActivity;
 import com.example.byg.exam_0120.activities.NaverTranslateApiActivity;
 import com.example.byg.exam_0120.activities.NavigationDrawerActivity;
+import com.example.byg.exam_0120.activities.PermissionActivity;
 import com.example.byg.exam_0120.activities.RealmExamActivity;
 import com.example.byg.exam_0120.activities.RecyclerViewActivity;
 import com.example.byg.exam_0120.activities.ScrollingActivity;
@@ -105,6 +106,7 @@ public class ListViewActivity extends AppCompatActivity {
         addItem("뉴스", "XML 파싱", XMLParsingActivity.class);
         addItem("설정 화면", "SettingsActivity", SettingsActivity.class);
         addItem("설정 화면", "SettingsActivity", AnimationActivity.class);
+        addItem("권한 체크", "TedPermission", PermissionActivity.class);
 
 //        for (int i = 0; i < 100; i++) {
 //            mDataList.add("이것은 데이타" + i);
